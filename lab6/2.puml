@@ -1,0 +1,23 @@
+@startuml
+state Paper {
+    [*] --> Draft
+    Draft --> OnReview : sent
+    
+    state OnReview {
+        [*] --> Checked : reviewPaper
+        Checked --> OnCorrection : correct [defects found]
+        Checked --> [*] : [no defects]
+        
+        OnCorrection --> Checked : sent
+        OnCorrection --> Draft : after 10 days [no submission]
+    }
+    
+    OnReview --> Accepted : approved
+    OnReview --> Draft : declined
+}
+
+Draft : Actions: prepare, edit
+OnReview : Actions: reviewPaper
+Checked : Actions: checkPaper
+OnCorrection : Actions: correctPaper
+@enduml

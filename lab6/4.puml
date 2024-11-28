@@ -1,0 +1,13 @@
+@startuml
+state Lamp {
+    [*] --> Off
+    Off --> Light : turnOn
+    Light --> Off : turnOff
+
+    Light --> Damaged : fell / Lamp breaks
+    Light --> Damaged : burnDown / Lamp burns out
+    Off --> Damaged : fell / Lamp breaks
+
+    Damaged --> [*] : dispose / Lamp is disposed
+}
+@enduml
