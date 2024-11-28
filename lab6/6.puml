@@ -1,0 +1,26 @@
+@startuml
+state CoffeeMachine {
+    [*] --> Off : powerButton
+    Off : Actions: indicatorOff
+
+    Off --> Ready : powerButton
+    Ready : Actions: indicatorOn
+    
+    state Ready {
+        [*] --> Idle
+        Idle : Actions: maintainTemperature
+        Idle --> Brewing : makeButtonPressed
+        Brewing : Actions: grindBeans, steam, pourCoffee
+        Brewing --> Idle : [coffeePrepared]
+        Brewing --> Ready : cancelButton
+        Ready --> Idle : displayNorEnoughCoffee()
+    }
+
+    state Brewing {
+        [*] --> Grind
+        Grind --> Steam : after grindTime
+        Steam --> Pour : after steamTime
+        Pour --> Brewing : after pourTime
+    }
+}
+@enduml

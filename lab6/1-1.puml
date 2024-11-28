@@ -1,0 +1,16 @@
+@startuml
+state TrafficLights {
+    [*] --> Offline
+    Offline : Actions: setInitial, setGreen, setYellow, setRed
+    Offline --> Online : On
+    
+    state Online {
+        [*] --> Green
+        Green --> Yellow : after 50s
+        Yellow --> Red : after 3s
+        Red --> Green : after 50s
+    }
+    
+    Online --> Offline : Off
+}
+@enduml

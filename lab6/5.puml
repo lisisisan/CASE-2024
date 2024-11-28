@@ -1,0 +1,33 @@
+@startuml
+state ObjectLifeCycle {
+    [*] --> Created : new
+    Created : Actions: alloc, init
+    Created --> InUse : assigned
+
+    InUse --> Invisible : outOfScope [no other references]
+    Invisible --> InUse : resurrected()
+
+    Invisible --> Unreachable : outOfMethod
+    Unreachable --> InUse : resurrected()
+    Unreachable --> Collected : gc_detected
+
+    state Collected {
+        [*] --> waitFinalize
+        waitFinalize --> Finalized : finalize() called
+        waitFinalize --> InUse : resurrected()
+    }
+
+    Collected --> Finalized : finalize() skipped
+    Finalized --> InUse : resurrected()
+    Finalized --> [*] : deallocated
+
+    state Resurrectable {
+        [*] --> Invisible
+        Invisible --> Unreachable
+        Unreachable --> Collected
+        Collected --> Finalized
+    }
+
+    Resurrectable : Substates can resurrect
+}
+@enduml
