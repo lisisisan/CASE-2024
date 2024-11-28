@@ -1,0 +1,14 @@
+@startuml
+package "MainApp" {
+    [MainApp] --> (ComputationEndpoint)
+    [MainApp] o-- [ProcessBean] : main
+    [MainApp] o-- [ProcessBean] : secondary
+    [ProcessBean] --> (Computation)
+}
+
+package "SecondApp" {
+    [SecondApp] <-- (Computation) : "Use WebService"
+}
+
+(ComputationEndpoint) <..> (Computation)
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+
+// Диаграмма последовательности (для взаимодействия)
+// Диаграмма отображает процесс, при котором engineSource генерирует событие и передает его слушателям.
+
+
+actor User
+participant EngineSource
+participant EngineEvent
+participant visPlugin
+participant lyricsPlugin
+
+User -> EngineSource : generateEvent()
+EngineSource -> EngineEvent : createEvent()
+EngineSource -> visPlugin : dispatch(event)
+visPlugin -> EngineSource : ignoreEvent()
+EngineSource -> lyricsPlugin : dispatch(event)
+lyricsPlugin -> EngineSource : handleEvent()
+
+@enduml

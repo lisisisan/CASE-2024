@@ -1,0 +1,46 @@
+@startuml
+
+class QualityFactor {
+    -name: String
+    -description: String
+    +getName(): String
+    +getDescription(): String
+}
+
+class Criterion {
+    -name: String
+    -qualityFactor: QualityFactor
+    -developmentStage: DevelopmentStage
+    +getName(): String
+    +getQualityFactor(): QualityFactor
+    +getDevelopmentStage(): DevelopmentStage
+}
+
+class Metric {
+    -name: String
+    -criterion: Criterion
+    -value: Float
+    +getName(): String
+    +getValue(): Float
+}
+
+class DevelopmentStage {
+    -name: String
+    -description: String
+    +getName(): String
+    +getDescription(): String
+}
+
+class Reliability {
+    -name: String
+    -description: String
+    +getName(): String
+    +getDescription(): String
+}
+
+QualityFactor "1" *-- "*" Criterion : includes
+Criterion "1" *-- "*" Metric : measures
+DevelopmentStage "1" *-- "*" Criterion : defines
+Reliability "1" *-- "*" Criterion : defines
+
+@enduml

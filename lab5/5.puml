@@ -1,0 +1,36 @@
+@startuml
+actor PluginsManager
+entity PluginManagerSettings
+entity PluginsDll
+entity Plugin
+entity PluginManager
+entity PlayerUIPresenter
+
+' Менеджер подключаемых модулей получает сообщение для загрузки плагинов
+PluginsManager -> PluginManagerSettings : loadPlugins()
+
+' Получение пути к директории с плагинами
+PluginManagerSettings -> PluginsManager : pluginsDirs
+
+' Цикл по всем директориям с плагинами
+loop Для каждой директории
+    PluginsManager -> PluginsDll : getPluginsCount()
+    PluginsDll -> PluginsManager : количество плагинов
+
+    loop Для каждого плагина
+        PluginsManager -> PluginsDll : getPlugin(номер)
+        PluginsDll -> PluginsManager : возвращает плагин
+
+        ' Инициализация плагина
+        PluginsManager -> PluginManager : initPlugin(plugin)
+        
+        ' Проверка, обрабатывает ли плагин UI-события
+        PluginManager -> Plugin : isUIHandled()
+        Plugin -> PluginManager : true/false
+
+        alt Если плагин обрабатывает UI-события
+            PluginManager -> PlayerUIPresenter : addListener(plugin)
+        end
+    end
+end
+@enduml

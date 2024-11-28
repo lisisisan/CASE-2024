@@ -1,0 +1,30 @@
+@startuml
+actor Author
+actor Editor
+actor Peer
+
+' Сообщение от автора к редактору
+Author -> Editor : manuscript
+Editor -> Author : confirmation
+
+' Редактор направляет статью рецензенту
+Editor -> Peer : evaluate
+Peer -> Editor : review
+
+' Редактор отправляет результаты автору и благодарности рецензенту
+Editor -> Author : resolution
+Editor -> Peer : thanks
+
+' Добавление фрагментов для рецензирования тремя рецензентами
+alt Three reviewers
+  Peer -> Editor : review1
+  Peer -> Editor : review2
+  Peer -> Editor : review3
+end
+
+' Порядок отправки результатов и благодарностей
+alt Order doesn't matter
+  Editor -> Author : resolution
+  Editor -> Peer : thanks
+end
+@enduml

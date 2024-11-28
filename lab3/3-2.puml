@@ -1,0 +1,38 @@
+@startuml
+// Диаграмма компонентов с указанием размещения:
+node MorphoDB {
+    component Database {
+        interface IMorphologyData
+        interface IDataExport
+    }
+}
+
+node LinguistPlace {
+    component DataClient {
+        interface IMorphologyData
+    }
+    component Export {
+        interface IDataExport
+    }
+    component Compiler {
+        component Parser
+        component Handler {
+            interface IErrorHandler
+        }
+        component Builder {
+            interface IMorphology
+        }
+    }
+}
+
+Database .. IMorphologyData
+Database .. IDataExport
+
+DataClient .. IMorphologyData
+Export .. IDataExport
+
+Compiler .. IMorphology
+Parser --> Handler
+Builder --> Handler
+Builder .. IMorphology
+@enduml

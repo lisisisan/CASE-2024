@@ -1,0 +1,23 @@
+@startuml
+actor ResponsiblePerson as user
+actor Author as author
+actor Chairman as chairman
+actor Operator as operator
+actor Controller as controller
+
+user -> (AttachIssue)
+user -> (AttachResolution)
+operator -> (DeleteDocument)
+controller -> (SendAnnouncement)
+
+(AttachIssue) -up-> (AttachDocument)
+(AttachResolution) -up-> (AttachDocument)
+(AttachDocument) --> (SendAnnouncement) : Оповещение
+
+(AttachDocument) -down-> (SearchForDocument) : Поиск документа
+(AttachDocument) -down-> (ValidateDocumentType) : Проверка типа документа
+
+(AttachIssue) --> (AttachDocument) : К вопросу
+(AttachResolution) --> (AttachDocument) : К постановлению
+
+@enduml

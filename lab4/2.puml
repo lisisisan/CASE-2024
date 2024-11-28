@@ -1,0 +1,27 @@
+@startuml
+actor User
+actor OCRModule
+actor MorphologyModule
+actor Dictionary
+
+User -> (CheckWordInDictionary)
+User -> (RestoreWordForm)
+User -> (GetGrammaticalValue)
+User -> (GetSimilarWords)
+
+OCRModule -> (CheckWordInDictionary)
+OCRModule -> (RestoreWordForm)
+OCRModule -> (GetGrammaticalValue)
+
+MorphologyModule -> (CheckIfLanguageSupported)
+
+(CheckWordInDictionary) --> (SearchInDictionary) : Проверка слова в словаре
+(RestoreWordForm) --> (SearchInDictionary) : Поиск начальной формы
+(GetGrammaticalValue) --> (SearchInDictionary) : Поиск грамматического значения
+(GetSimilarWords) --> (SearchInDictionary) : Поиск похожих слов
+(SearchInDictionary) --> Dictionary : Поиск в словаре
+
+(CheckIfLanguageSupported) -left-> OCRModule : Проверка поддержки языка
+(CheckIfLanguageSupported) -down-> MorphologyModule : Проверка поддержки языка
+
+@enduml

@@ -1,0 +1,58 @@
+@startuml
+
+class Patient {
+    -name: String
+    -dob: Date
+    +getName(): String
+    +getDOB(): Date
+}
+
+class Doctor {
+    -name: String
+    -specialization: String
+    +getName(): String
+    +getSpecialization(): String
+}
+
+class Disease {
+    -name: String
+    +getName(): String
+}
+
+class Visit {
+    -date: Date
+    -patient: Patient
+    -doctor: Doctor
+    +getDate(): Date
+}
+
+class Prescription {
+    -medication: String
+    -dosage: String
+    +getMedication(): String
+    +getDosage(): String
+}
+
+class Appointment {
+    -date: Date
+    -doctor: Doctor
+    -patient: Patient
+    +getDate(): Date
+}
+
+class Reminder {
+    -time: Date
+    -appointment: Appointment
+    +setReminder(time: Date): void
+}
+
+Patient "1" *-- "*" Visit : has
+Patient "1" *-- "*" Appointment : books
+Doctor "1" *-- "*" Visit : conducts
+Doctor "1" *-- "*" Appointment : attends
+Visit "1" *-- "*" Prescription : generates
+Patient "1" *-- "*" Disease : diagnosedWith
+Appointment "1" *-- "1" Reminder : has
+Reminder "1" *-- "1" Appointment : associatedWith
+
+@enduml

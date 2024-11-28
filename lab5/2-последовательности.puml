@@ -1,0 +1,27 @@
+@startuml
+actor Person
+entity Lift
+
+' Пассажир нажимает кнопку для закрытия дверей
+Person -> Lift : pressDoors
+
+' Пассажир выбирает этаж
+Person -> Lift : pressButton(floor)
+
+' Лифт закрывает двери и начинает движение
+Lift -> Lift : startMoving
+note right of Lift : лифт движется 3 секунды на этаж
+
+' Лифт сообщает о проезжаемых этажах
+Lift -> Person : floorReached (floor1)
+Lift -> Person : floorReached (floor2)
+Lift -> Person : floorReached (floor3)
+Lift -> Person : floorReached (floor4)
+Lift -> Person : floorReached (floor5)
+
+' Лифт останавливается
+Lift -> Lift : stopMoving
+
+' Пассажир нажимает кнопку для открытия дверей
+Person -> Lift : pressDoors
+@enduml

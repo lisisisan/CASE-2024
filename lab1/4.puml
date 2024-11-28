@@ -1,0 +1,69 @@
+@startuml
+
+abstract class Event {
+    +eventType: String
+    +getEventType(): String
+}
+
+interface Listener {
+    +handleEvent(event: Event): void
+}
+
+class Plugin {
+    -name: String
+    -version: String
+    +load(): void
+    +unload(): void
+    +handleEvent(event: Event): void
+}
+
+class PluginManager implements Subject {
+    -listeners: List<Listener>
+    +addListener(listener: Listener): void
+    +removeListener(listener: Listener): void
+    +notifyListeners(event: Event): void
+    +loadPlugin(plugin: Plugin): void
+    +unloadPlugin(plugin: Plugin): void
+    +checkForUpdates(): void
+}
+
+interface Subject {
+    +addListener(listener: Listener): void
+    +removeListener(listener: Listener): void
+    +notifyListeners(event: Event): void
+}
+
+class UserInterface {
+    -pluginManager: PluginManager
+    +onEventReceived(event: Event): void
+    +display(): void
+}
+
+class Controller {
+    -networkManager: NetworkManager
+    -pluginManager: PluginManager
+    +loadPlugins(): void
+    +checkUpdates(): void
+}
+
+class NetworkManager {
+    +connectToServer(): void
+    +disconnect(): void
+    +getAvailablePlugins(): List<Plugin>
+}
+
+class MultimediaLibrary {
+    +playMedia(): void
+    +pauseMedia(): void
+}
+
+PluginManager "1" *-- "*" Plugin : manages
+Plugin "1" *-- "*" Event : handles
+UserInterface "1" *-- "1" PluginManager : interacts with
+Controller "1" *-- "1" PluginManager : manages
+Controller "1" *-- "1" NetworkManager : uses
+PluginManager "1" *-- "*" Listener : registers
+NetworkManager "1" *-- "*" Plugin : fetches plugins
+PluginManager "1" o-- "*" Event : triggers
+
+@enduml

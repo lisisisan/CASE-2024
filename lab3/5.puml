@@ -1,0 +1,60 @@
+@startuml MorphologyModule
+
+package MorphologyModule {
+    ' Разрешить смешивание различных UML элементов
+    allowmixing
+
+    ' Профиль с расширением Artifact для добавления версии
+    stereotype VersionedArtifact {
+        version : String
+    }
+
+    ' Артефакты
+    artifact "Morphology.dll" as MorphologyDll <<VersionedArtifact>> {
+        version = "1.0.0"
+    }
+
+    artifact "RootObjects.dll" as RootObjectsDll <<VersionedArtifact>> {
+        version = "4.0.1.157"
+    }
+
+    artifact "MorphoLocalize.dll" as MorphoLocalizeDll <<VersionedArtifact>> {
+        version = "2.3.0"
+    }
+
+    ' Компоненты
+    component MorphoEngine {
+        interface IMorphology
+        interface IMorphoLocalize
+    }
+
+    component RootObjects
+    component MorphoLocalizeRu
+    component MorphoLocalizeEn
+
+    ' Стереотипированные артефакты с файлами словарей
+    artifact "fr.lng" <<VersionedArtifact>> {
+        version = "1.0"
+    }
+
+    artifact "de.lng" <<VersionedArtifact>> {
+        version = "1.0"
+    }
+
+    ' Материализация компонентов
+    MorphologyDll ..|> MorphoEngine
+    RootObjectsDll ..|> RootObjects
+    MorphoLocalizeDll ..|> MorphoLocalizeRu
+    MorphoLocalizeDll ..|> MorphoLocalizeEn
+
+    ' Использование интерфейсов
+    MorphoEngine --> RootObjects
+    MorphoEngine --> "IMorphoLocalize" MorphoLocalizeRu
+    MorphoEngine --> "IMorphology" RootObjects
+
+    ' Связи с файлами словарей
+    MorphoEngine --> "fr.lng"
+    MorphoEngine --> "de.lng"
+}
+
+@enduml

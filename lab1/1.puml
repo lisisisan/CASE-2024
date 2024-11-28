@@ -1,0 +1,50 @@
+@startuml
+
+abstract class Entity {
+    +create(): void
+    +delete(): void
+}
+
+class Disk {
+    -clusters: List<Cluster>
+    +addCluster(cluster: Cluster): void
+    +removeCluster(cluster: Cluster): void
+}
+
+class Cluster {
+    -id: int
+    -data: String
+    +readData(position: int, length: int): String
+    +writeData(position: int, data: String): void
+}
+
+class Folder {
+    -name: String
+    -content: List<Entity>  // Folder contains Folders and Files
+    +addFolder(folder: Folder): void
+    +removeFolder(folder: Folder): void
+    +addFile(file: File): void
+    +removeFile(file: File): void
+}
+
+class File {
+    -name: String
+    -clusters: List<Cluster>
+    +readData(position: int, length: int): String
+    +writeData(position: int, data: String): void
+}
+
+class DataBuffer {
+    -data: String
+    +writeToBuffer(data: String): void
+    +readFromBuffer(position: int, length: int): String
+}
+
+Disk "1" *-- "*" Cluster : contains
+Folder "1" *-- "*" Entity : contains
+File "1" *-- "*" Cluster : stores
+File "1" *-- "1" DataBuffer : manages
+Folder "1" *-- "*" Folder : contains
+Folder "1" *-- "*" File : contains
+
+@enduml

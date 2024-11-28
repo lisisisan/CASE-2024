@@ -1,0 +1,28 @@
+@startuml
+actor StringParser
+entity Dictionary
+entity Node
+
+' Шаг 1: Парсер строки запрашивает наличие слова
+StringParser -> Dictionary : hasWord(word)
+
+' Шаг 2: Метод hasWord получает корневой узел дерева
+Dictionary -> Dictionary : getRoot()
+Dictionary -> Node : rootNode
+
+' Шаг 3: Для каждой буквы слова выполняется поиск по дереву
+loop Для каждой буквы в слове
+    Node -> Node : getNextLetter(c)
+    alt Если буква найдена
+        Node -> Node : nextNode
+    else Если буква не найдена
+        Node -> Dictionary : throw NoSuchLetter
+        Dictionary -> StringParser : return false
+    end
+end
+
+' Шаг 4: Когда буквы заканчиваются, проверяется, является ли текущий узел конечным
+Node -> Node : isLeaf()
+Node -> StringParser : return true/false
+
+@enduml

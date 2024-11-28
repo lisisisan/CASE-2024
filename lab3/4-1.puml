@@ -1,0 +1,24 @@
+@startuml lab1-4-1
+
+package Application {
+    class Application
+    class MainApp {
+        + ComputationEndpoint : Computation
+    }
+
+    abstract class Bean
+    class ProcessBean
+    class ComputeBean
+
+    Bean <|-- ProcessBean
+    Bean <|-- ComputeBean
+
+    class ComputeLink
+
+    ProcessBean --> ComputeLink
+    ComputeLink --> ComputeBean
+}
+
+MainApp o-- ProcessBean : "main"
+MainApp o-- ProcessBean : "secondary"
+@enduml

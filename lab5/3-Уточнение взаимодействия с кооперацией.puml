@@ -1,0 +1,21 @@
+@startuml
+actor User
+entity Cabin
+entity FloorButton
+entity Algorithm
+
+' Кооперация с линией жизни для алгоритма
+actor SelectFloor
+
+alt Цикл проверки всех кнопок этажей
+  loop для каждого этажа
+    FloorButton -> Cabin : isPressed
+    alt кнопка нажата
+      Cabin -> Algorithm : selectFloor(floor)
+    end
+  end
+end
+
+' Кооперация взаимодействует с алгоритмом
+SelectFloor -> Algorithm : selectFloor(floor)
+@enduml

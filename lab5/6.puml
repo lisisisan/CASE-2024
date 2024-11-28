@@ -1,0 +1,50 @@
+@startuml
+actor PlayerView
+entity UIPresenter
+entity Engine
+entity IUIListener
+entity lyricsPlugin
+entity NetController
+
+' Шаг 1: Начало воспроизведения
+PlayerView -> UIPresenter : playEntry
+
+' Шаг 2: Асинхронная рассылка события всем слушателям
+UIPresenter -> IUIListener : raiseEvent(event)
+
+' Шаг 3: Получение типа контента от Engine
+UIPresenter -> Engine : getContentType(name)
+Engine -> UIPresenter : contentType
+
+' Шаг 4: Получение медиапотока
+alt Если контент аудио
+    UIPresenter -> Engine : getAudioStream
+    Engine -> UIPresenter : audioStream
+else если контент видео
+    UIPresenter -> Engine : getVideoStream
+    Engine -> UIPresenter : videoStream
+end
+
+' Шаг 5: Установка режима воспроизведения и медиапотока
+UIPresenter -> UIPresenter : setPlaybackMode(mode)
+UIPresenter -> UIPresenter : setMediaStream(stream)
+
+' Шаг 6: Запуск воспроизведения
+UIPresenter -> UIPresenter : play()
+
+' Шаг 7: Обработка события асинхронно
+note right of UIPresenter
+    Асинхронная обработка события handleEvent
+end note
+IUIListener -> IUIListener : handleEvent(event)
+
+' Шаг 8: Обработка события песней модулем lyricsPlugin
+UIPresenter -> lyricsPlugin : getContentType(item)
+lyricsPlugin -> lyricsPlugin : makeRequest(text)
+lyricsPlugin -> NetController : dispatchRequest(request, lyricsPlugin)
+
+' Шаг 9: Обработка ответа от сервера
+NetController -> NetController : processResponse(response)
+lyricsPlugin -> UIPresenter : displayPage(htmlPage)
+
+@enduml

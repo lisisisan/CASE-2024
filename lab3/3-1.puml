@@ -1,0 +1,60 @@
+@startuml
+
+// Диаграмма классов
+interface IMorphologyData {
+    +modifyData(data: String): void
+}
+
+interface IDataExport {
+    +exportData(): String
+}
+
+interface IMorphology {
+    +processData(data: String): void
+}
+
+interface IErrorHandler {
+    +handleError(error: String): void
+}
+
+class Database {
+    +data: String
+}
+Database ..|> IMorphologyData
+Database ..|> IDataExport
+
+class DataClient {
+    +modifyData(data: String): void
+}
+DataClient --> IMorphologyData
+
+class Export {
+    +exportData(): String
+}
+Export --> IDataExport
+
+class Compiler {
+    +compile(): void
+}
+Compiler --> IMorphology
+
+class Parser {
+    +parse(data: String): void
+}
+Parser --> IErrorHandler
+
+class Handler {
+    +handleError(error: String): void
+}
+Handler ..|> IErrorHandler
+
+class Builder {
+    +buildModel(data: String): void
+}
+Builder --> IErrorHandler
+Builder --> IMorphology
+
+Compiler *-- Parser
+Compiler *-- Handler
+Compiler *-- Builder
+@enduml

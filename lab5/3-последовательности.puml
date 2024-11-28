@@ -1,0 +1,16 @@
+@startuml
+actor User
+entity Cabin
+entity FloorButton
+entity Algorithm
+
+' Атрибут для номера этажа
+alt Цикл проверки всех кнопок этажей
+  loop для каждого этажа
+    FloorButton -> Cabin : isPressed
+    alt кнопка нажата
+      Cabin -> Algorithm : selectFloor(floor)
+    end
+  end
+end
+@enduml

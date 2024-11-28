@@ -1,0 +1,58 @@
+@startuml
+
+// Диаграмма классов модели Elevator
+
+class Elevator {
+    -power: Power
+    -controlUnit: ControlUnit
+    -cage: Cage
+    -engine: Engine
+    -floorControls: FloorControls[]
+}
+
+class Cage {
+    +move(direction: String): void
+    +stop(): void
+}
+
+class ControlUnit {
+    +processCommand(command: String): void
+}
+
+class FloorControls {
+    +callElevator(floor: int): void
+}
+
+class Engine {
+    +start(direction: String): void
+    +stop(): void
+}
+
+interface CageControls {
+    +move(direction: String): void
+    +stop(): void
+}
+
+interface Operations {
+    +sendCommand(command: String): void
+}
+
+interface FloorButtons {
+    +callElevator(floor: int): void
+}
+
+Elevator *-- Cage
+Elevator *-- ControlUnit
+Elevator *-- FloorControls
+Elevator *-- Engine
+Elevator o-- Power
+
+Cage ..|> CageControls
+ControlUnit ..|> Operations
+FloorControls ..|> FloorButtons
+
+Cage -- Engine : cable
+Cage -- ControlUnit : cageWire
+ControlUnit -- FloorControls : floorWire
+ControlUnit -- Engine : controls
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+actor Person
+entity Lift
+
+Person -> Lift : pressDoors
+Person -> Lift : pressButton(floor)
+Lift -> Lift : startMoving
+Lift -> Person : floorReached (floor1)
+Lift -> Person : floorReached (floor2)
+Lift -> Person : floorReached (floor3)
+Lift -> Person : floorReached (floor4)
+Lift -> Person : floorReached (floor5)
+Lift -> Lift : stopMoving
+Person -> Lift : pressDoors
+@enduml

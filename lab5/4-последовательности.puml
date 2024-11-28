@@ -1,0 +1,32 @@
+@startuml
+actor OldMan
+entity SeaShore
+entity Sea
+entity SmallFish
+entity MediumFish
+entity Seine
+
+' Старик забрасывает невод в море
+OldMan -> SeaShore : throw(seine)
+
+' Малая рыбка подплывает к берегу
+SmallFish -> Sea : floatNearby
+
+' Средняя рыбка подплывает к берегу после маленькой
+MediumFish -> Sea : floatNearby
+
+' Невод запрашивает рыбу
+Seine -> Sea : tryFish(seine)
+
+alt Если рыбка уже подплыла
+    Sea -> Seine : add(smallfish)
+else
+    Sea -> Seine : add(SeaScum) ' Море передает тину, если рыбки нет
+end
+
+' Старик вытягивает невод
+OldMan -> Seine : pullAshore
+
+' Старик проверяет невод
+OldMan -> Seine : checkSeine
+@enduml

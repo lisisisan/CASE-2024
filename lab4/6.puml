@@ -1,0 +1,27 @@
+@startuml
+actor Client
+actor BankCustomer
+actor ATM
+actor Bank
+actor PaymentSystem
+
+Client -> (PerformOperation)
+BankCustomer -> (PerformOperation)
+ATM -> (PerformOperation)
+ATM -> (InformAboutServices)
+ATM -> PaymentSystem : Запрос на выполнение операции
+
+(PerformOperation) -down-> (WithdrawCash) : Получение наличных
+(PerformOperation) -down-> (PayBills) : Оплата услуг
+(WithdrawCash) --> (CurrencyOption) : Выбор валюты
+(CurrencyOption) -right-> (ConfirmWithdrawal) : Подтверждение снятия средств
+
+(WithdrawCash) -down-> (VerifyBalance) : Проверка баланса
+(WithdrawCash) -down-> (CashAvailable) : Проверка наличия средств
+
+(InformAboutServices) -down-> (PayBills) : Оплата услуг
+
+(VerifyBalance) -down-> Bank : Проверка баланса счета
+(CashAvailable) -down-> Bank : Запрос наличности в банке
+
+@enduml

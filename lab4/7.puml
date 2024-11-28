@@ -1,0 +1,25 @@
+@startuml
+actor Linguist
+actor Programmer
+actor BuildServer
+actor Semantics
+
+Linguist -> (ModifyData)
+Programmer -> (ModifyData)
+Linguist -> (Compile)
+Programmer -> (Compile)
+BuildServer -> (Compile)
+Linguist -> (ExportData)
+Programmer -> (ExportData)
+Linguist -> (ExportWordList)
+Semantics -> (ExportWordList)
+
+(ModifyData) -down-> (AddWord) : Добавление слова
+(ModifyData) -down-> (RemoveWord) : Удаление слова
+(ModifyData) -down-> (ChangeWord) : Изменение слова
+(ModifyData) -down-> (CheckDataIntegrity) : Проверка целостности данных
+(Compile) -down-> (ExportData) : Экспорт данных для компиляции
+(ExportData) -down-> (Debugging) : Экспорт данных для отладки
+(ExportWordList) -down-> (ExportData) : Экспорт словаря для семантики
+
+@enduml
