@@ -4,7 +4,7 @@ actor Editor
 actor Reviewer
 actor ProofReader
 
-rectangle "System" {
+rectangle "Journal" {
     Author - (SendPaper)
     Editor - (Review)
     Reviewer - (Review)

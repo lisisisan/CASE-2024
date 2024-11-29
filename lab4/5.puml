@@ -3,7 +3,7 @@ actor User
 actor SuperUser
 actor PluginsServer
 
-rectangle "Система" {
+rectangle "eLibrary" {
     User - (ConfigurePlugins)
     User - (UpdatePlugins)
     

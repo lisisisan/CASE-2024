@@ -1,6 +1,7 @@
 @startuml
 actor Client
 actor BankCustomer
+actor Bank
 actor PaymentSystem
 
 rectangle "ATM" {
@@ -10,6 +11,7 @@ rectangle "ATM" {
 
     (PerformOperation) -down-> (CashWithdrawal): <<include>>
     (CashWithdrawal) -down-> (CurrencyExchange): <<extend>>
+    (PaymentForServices) -down-> (Bank): <<include>>
     (PaymentForServices) -down-> (InformAboutServices): <<include>>
 }
 

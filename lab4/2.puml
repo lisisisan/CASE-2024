@@ -7,11 +7,10 @@ rectangle "MorphologyModule" {
     OCRModule - (CheckWordLanguage)
     OCRModule - (GetBaseForm)
     OCRModule - (GetGrammarMeaning)
-    OCRModule - (GetSimilarWords)
 
-    (CheckWordLanguage) -down-> (GetBaseForm): <<include>>
-    (GetBaseForm) -down-> (GetGrammarMeaning): <<include>>
-    (GetBaseForm) -down-> (GetSimilarWords): <<include>>
+    (CheckWordLanguage) <-down- (GetBaseForm): <<extend>>
+    (GetBaseForm) <-down- (GetGrammarMeaning): <<extend>>
+    (GetBaseForm) <-down- (GetSimilarWords): <<extend>>
 }
 
 

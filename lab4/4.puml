@@ -1,18 +1,1 @@
-@startuml
-actor Client
-actor BankCustomer
-actor Bank
-actor PaymentSystem
 
-rectangle "ATM" {
-    Client - (PerformOperation)
-    BankCustomer - (PerformOperation)
-    PaymentSystem - (PerformOperation)
-
-    (PerformOperation) -down-> (CashWithdrawal): <<include>>
-    (CashWithdrawal) -down-> (CurrencyExchange): <<extend>>
-    (PaymentForServices) -down-> (Bank): <<include>>
-    (PaymentForServices) -down-> (InformAboutServices): <<include>>
-}
-
-@enduml

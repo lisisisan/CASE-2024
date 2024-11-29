@@ -1,25 +1,25 @@
 @startuml
 actor Linguist
 actor Programmer
-actor BuildServer
-actor Semantics
+' actor BuildServer
+' actor Semantics
 
 rectangle "MorphoDB" {
     Linguist - (ModifyData)
-    Linguist - (Compile)
     Linguist - (ExportData)
 
     Programmer - (ModifyData)
-    Programmer - (Compile)
     Programmer - (ExportData)
-    Programmer - (ExportDataForDebug)
 
-    BuildServer - (Compile)
+    ' BuildServer - (Compile)
 
-    Semantics - (ExportWordList)
+    ' Semantics - (ExportWordList)
 
+    (ExportData)-down-> (Debug): <<extend>>
+    (ExportData)-down-> (Compile): <<include>>
     (ModifyData) -down-> (AddWord): <<include>>
     (ModifyData) -down-> (RemoveWord): <<include>>
+    (ModifyData) -down-> (Compile): <<include>>
     (ModifyData) -down-> (ChangeWord): <<include>>
     (ModifyData) -down-> (CheckDataIntegrity): <<extend>>
     (CheckDataIntegrity) -down-> (RemoveWord): <<extend>>

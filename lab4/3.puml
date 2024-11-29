@@ -5,10 +5,9 @@ actor Controller
 
 rectangle "Doc System" {
     RP - (AttachIssue)
-    RP - (AttachResolution)
     RP - (AttachDocument)
-    Operator - (DeleteDocument)
     Controller - (DeleteDocument)
+    Operator - (DeleteDocument)
     (AttachIssue) -down-> (AttachDocument): <<include>>
     (AttachResolution) -down-> (AttachDocument): <<include>>
     (AttachDocument) --> (SendAnnouncement): <<extend>>
