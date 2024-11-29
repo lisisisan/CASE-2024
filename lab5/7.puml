@@ -1,5 +1,5 @@
 @startuml
-actor StringParser
+participant StringParser
 entity Dictionary
 entity Node
 

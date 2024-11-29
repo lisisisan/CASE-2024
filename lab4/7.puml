@@ -4,22 +4,28 @@ actor Programmer
 actor BuildServer
 actor Semantics
 
-Linguist -> (ModifyData)
-Programmer -> (ModifyData)
-Linguist -> (Compile)
-Programmer -> (Compile)
-BuildServer -> (Compile)
-Linguist -> (ExportData)
-Programmer -> (ExportData)
-Linguist -> (ExportWordList)
-Semantics -> (ExportWordList)
+rectangle "MorphoDB" {
+    Linguist - (ModifyData)
+    Linguist - (Compile)
+    Linguist - (ExportData)
 
-(ModifyData) -down-> (AddWord) : Добавление слова
-(ModifyData) -down-> (RemoveWord) : Удаление слова
-(ModifyData) -down-> (ChangeWord) : Изменение слова
-(ModifyData) -down-> (CheckDataIntegrity) : Проверка целостности данных
-(Compile) -down-> (ExportData) : Экспорт данных для компиляции
-(ExportData) -down-> (Debugging) : Экспорт данных для отладки
-(ExportWordList) -down-> (ExportData) : Экспорт словаря для семантики
+    Programmer - (ModifyData)
+    Programmer - (Compile)
+    Programmer - (ExportData)
+    Programmer - (ExportDataForDebug)
+
+    BuildServer - (Compile)
+
+    Semantics - (ExportWordList)
+
+    (ModifyData) -down-> (AddWord): <<include>>
+    (ModifyData) -down-> (RemoveWord): <<include>>
+    (ModifyData) -down-> (ChangeWord): <<include>>
+    (ModifyData) -down-> (CheckDataIntegrity): <<extend>>
+    (CheckDataIntegrity) -down-> (RemoveWord): <<extend>>
+
+    (ExportData) -down-> (ExportWordList): <<include>>
+
+}
 
 @enduml

@@ -1,5 +1,5 @@
 @startuml
-actor PluginsManager
+participant PluginsManager
 entity PluginManagerSettings
 entity PluginsDll
 entity Plugin

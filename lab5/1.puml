@@ -1,7 +1,7 @@
 @startuml
-actor Author
-actor Editor
-actor Peer
+participant Author
+participant Editor
+participant Peer
 
 ' Сообщение от автора к редактору
 Author -> Editor : manuscript

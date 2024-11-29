@@ -1,6 +1,6 @@
 @startuml
 
-// Диаграмма классов
+' Диаграмма классов
 interface IMorphologyData {
     +modifyData(data: String): void
 }

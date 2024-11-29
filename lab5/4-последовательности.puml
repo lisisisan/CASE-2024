@@ -1,10 +1,10 @@
 @startuml
 actor OldMan
-entity SeaShore
-entity Sea
-entity SmallFish
-entity MediumFish
-entity Seine
+participant SeaShore
+participant Sea
+participant SmallFish
+participant MediumFish
+participant Seine
 
 ' Старик забрасывает невод в море
 OldMan -> SeaShore : throw(seine)

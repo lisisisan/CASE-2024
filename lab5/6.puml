@@ -1,5 +1,5 @@
 @startuml
-actor PlayerView
+participant PlayerView
 entity UIPresenter
 entity Engine
 entity IUIListener

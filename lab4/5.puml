@@ -1,0 +1,22 @@
+@startuml
+actor User
+actor SuperUser
+actor PluginsServer
+
+rectangle "Система" {
+    User - (ConfigurePlugins)
+    User - (UpdatePlugins)
+    
+    SuperUser - (UpdatePluginsList)
+
+    PluginsServer - (UpdatePlugins)
+
+    (ConfigurePlugins) --> (SelectPlugin) : <<include>>
+    (ConfigurePlugins) --> (ChangeSettings) : <<include>>
+    
+    (UpdatePlugins) --> (CheckPluginsList) : <<include>>
+    (UpdatePluginsList) --> (DeletePlugins) : <<include>>
+    (UpdatePluginsList) --> (InstallPlugins) : <<include>>
+    (UpdatePluginsList) --> (CheckPluginsList) : <<include>>
+}
+@enduml
