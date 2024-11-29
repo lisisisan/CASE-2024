@@ -1,24 +1,18 @@
 @startuml
-actor User
-actor SuperUser
-actor PluginsServer
+actor Client
+actor BankCustomer
+actor Bank
+actor PaymentSystem
 
-User -> (ConfigurePlugins)
-User -> (SelectPlugin)
-User -> (ChangeSettings)
-User -> (UpdatePlugins)
+rectangle "ATM" {
+    Client - (PerformOperation)
+    BankCustomer - (PerformOperation)
+    PaymentSystem - (PerformOperation)
 
-SuperUser -> (UpdatePluginsList)
-SuperUser -> (DeletePlugins)
-SuperUser -> (InstallPlugins)
-SuperUser -> (CheckPluginsList)
-
-(ConfigurePlugins) -down-> (SelectPlugin) : Выбор плагина
-(SelectPlugin) -down-> (ChangeSettings) : Настройка плагина
-(UpdatePlugins) -right-> PluginsServer : Обновление с сервера
-(UpdatePluginsList) -down-> PluginsServer : Обновление списка плагинов
-(DeletePlugins) -down-> PluginsServer : Удаление плагинов
-(InstallPlugins) -down-> PluginsServer : Установка плагинов
-(CheckPluginsList) -down-> PluginsServer : Просмотр списка плагинов
+    (PerformOperation) -down-> (CashWithdrawal): <<include>>
+    (CashWithdrawal) -down-> (CurrencyExchange): <<extend>>
+    (PaymentForServices) -down-> (Bank): <<include>>
+    (PaymentForServices) -down-> (InformAboutServices): <<include>>
+}
 
 @enduml

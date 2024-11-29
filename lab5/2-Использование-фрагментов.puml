@@ -1,6 +1,6 @@
 @startuml
 actor Person
-entity Lift
+participant Lift
 
 ' Пассажир нажимает кнопку для закрытия дверей
 Person -> Lift : pressDoors

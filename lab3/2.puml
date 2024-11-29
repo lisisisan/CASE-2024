@@ -1,6 +1,6 @@
 @startuml
 
-// Диаграмма классов модели Elevator
+' Диаграмма классов модели Elevator
 
 class Elevator {
     -power: Power

@@ -1,6 +1,6 @@
 @startuml
 actor Person
-entity Lift
+participant Lift
 
 Person -> Lift : pressDoors
 Person -> Lift : pressButton(floor)

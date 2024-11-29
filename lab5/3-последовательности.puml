@@ -1,6 +1,6 @@
 @startuml
 actor User
-entity Cabin
+participant Cabin
 entity FloorButton
 entity Algorithm
 

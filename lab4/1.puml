@@ -4,14 +4,15 @@ actor Editor
 actor Reviewer
 actor ProofReader
 
-Author -> (SendPaper)
-Editor -> (SendPaper)
-Editor -> (Review)
-Reviewer -> (Review)
-Editor -> (SendPaper)
-ProofReader -> (PrepareForPublishing)
+rectangle "System" {
+    Author - (SendPaper)
+    Editor - (Review)
+    Reviewer - (Review)
+    Editor - (SendPaper)
+    ProofReader - (PrepareForPublishing)
 
-(SendPaper) --> (Review) : After sending for review
-(PrepareForPublishing) --> (SendPaper) : Only if approved by Editor
+    (SendPaper) --> (Review) : <<include>>
+    (PrepareForPublishing) --> (SendPaper) : <<extend>> 
+}
 
 @enduml

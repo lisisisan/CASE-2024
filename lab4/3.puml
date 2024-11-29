@@ -1,23 +1,17 @@
 @startuml
-actor ResponsiblePerson as user
-actor Author as author
-actor Chairman as chairman
-actor Operator as operator
-actor Controller as controller
+actor ResponsiblePerson as RP
+actor Operator
+actor Controller
 
-user -> (AttachIssue)
-user -> (AttachResolution)
-operator -> (DeleteDocument)
-controller -> (SendAnnouncement)
-
-(AttachIssue) -up-> (AttachDocument)
-(AttachResolution) -up-> (AttachDocument)
-(AttachDocument) --> (SendAnnouncement) : Оповещение
-
-(AttachDocument) -down-> (SearchForDocument) : Поиск документа
-(AttachDocument) -down-> (ValidateDocumentType) : Проверка типа документа
-
-(AttachIssue) --> (AttachDocument) : К вопросу
-(AttachResolution) --> (AttachDocument) : К постановлению
+rectangle "Doc System" {
+    RP - (AttachIssue)
+    RP - (AttachResolution)
+    RP - (AttachDocument)
+    Operator - (DeleteDocument)
+    Controller - (DeleteDocument)
+    (AttachIssue) -down-> (AttachDocument): <<include>>
+    (AttachResolution) -down-> (AttachDocument): <<include>>
+    (AttachDocument) --> (SendAnnouncement): <<extend>>
+}
 
 @enduml

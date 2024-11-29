@@ -1,11 +1,11 @@
 @startuml
 actor User
-entity Cabin
+participant Cabin
 entity FloorButton
 entity Algorithm
 
 ' Кооперация с линией жизни для алгоритма
-actor SelectFloor
+entity SelectFloor
 
 alt Цикл проверки всех кнопок этажей
   loop для каждого этажа

@@ -1,6 +1,6 @@
 @startuml
 
-// Диаграмма классов
+' Диаграмма классов
 class EngineSource {
     +generateEvent(): void
     +addListener(listener: EngineListener): void

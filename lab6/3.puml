@@ -1,32 +1,24 @@
-@startuml
-state PlayerController {
-    [*] --> NotInitialized
-    NotInitialized --> Loading : startPlayer
+@startuml 2
+[*] --> Draft
 
-    state Loading {
-        [*] --> InitEngine : initEngine
-        InitEngine --> InitUI : initUI
-        InitUI --> LoadPlugins : loadPlugins
-        LoadPlugins --> [*]
-    }
+Draft :
+Draft --> OnReview : sent
 
-    Loading --> Ready : loadingComplete
-    
-    state Ready {
-        [*] --> Stopped
-        Stopped --> Playing : play
-        Playing --> Paused : pause
-        Paused --> Playing : resume
-        Playing --> Stopped : stop
-        Paused --> Stopped : stop
-        
-        state MediaLibrary <<parallel>> {
-            [*] --> SearchingContent : searchNewContent
-            SearchingContent --> DownloadingInfo : contentFound
-            DownloadingInfo --> [*] : downloadComplete
-        }
-    }
+OnReview : 
+OnReview : do/ Рецензирование
+OnReview --> Accepted : approved
+OnReview --> Draft : declined
 
-    Ready --> Loading : resetPlayer
-}
+Accepted : 
+
+OnReview --> Checked : checking
+
+Checked : 
+Checked --> OnCorrection : correct
+Checked --> OnReview : review completed
+
+OnCorrection :
+OnCorrection --> Checked : sent
+OnCorrection --> Draft : if not sent in 10 days
+
 @enduml

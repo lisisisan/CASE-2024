@@ -1,23 +1,24 @@
-@startuml
-state Paper {
-    [*] --> Draft
-    Draft --> OnReview : sent
-    
-    state OnReview {
-        [*] --> Checked : reviewPaper
-        Checked --> OnCorrection : correct [defects found]
-        Checked --> [*] : [no defects]
-        
-        OnCorrection --> Checked : sent
-        OnCorrection --> Draft : after 10 days [no submission]
-    }
-    
-    OnReview --> Accepted : approved
-    OnReview --> Draft : declined
-}
+@startuml 2
+[*] --> Draft
 
-Draft : Actions: prepare, edit
-OnReview : Actions: reviewPaper
-Checked : Actions: checkPaper
-OnCorrection : Actions: correctPaper
+Draft :
+Draft --> OnReview : sent
+
+OnReview : 
+OnReview : do/ Рецензирование
+OnReview --> Accepted : approved
+OnReview --> Draft : declined
+
+Accepted : 
+
+OnReview --> Checked : checking
+
+Checked : 
+Checked --> OnCorrection : correct
+Checked --> OnReview : review completed
+
+OnCorrection :
+OnCorrection --> Checked : sent
+OnCorrection --> Draft : if not sent in 10 days
+
 @enduml
